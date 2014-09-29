@@ -17,7 +17,7 @@ class App {
             self::defineSystemConfigs();
             self::setConstants();
             self::loadVendors();
-            xd('foi', APP_PATH);
+            xd('foi', APP_PATH, APP_ENV, APP_VERSION);
         } catch (\Exception $ex) {
             xd($ex);
         }
@@ -45,7 +45,8 @@ class App {
         define('PUBLIC_PATH', dirname(__DIR__) . '/public/');
         define('TMP_PATH', dirname(__DIR__) . '/public/tmp/');
         define('LOG_PATH', dirname(__DIR__) . '/logs/');
-        defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'prod'));
+        defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') : 'prod'));
+        defined('APP_VERSION') || define('APP_VERSION', (getenv('APP_VERSION') ? getenv('APP_VERSION') : 'v0.0.0'));
     }
 
     public static function loadVendors() {
