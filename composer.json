@@ -1,0 +1,20 @@
+{
+    "authors": [
+        {
+            "name": "Guilherme Fontenele",
+            "email": "guilherme@fontenele.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "monolog/monolog": "1.11.*"
+    },
+    "autoload": {
+        "psr-0": {"Fuska": "vendor/"},
+        "psr-4": {"Fuska\\": "vendor/Fuska"},
+        "files": [
+            "vendor/Fuska/System/fdebug.php",
+            "vendor/Fuska/System/exceptions.php"
+        ]
+    }
+}
