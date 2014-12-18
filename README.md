@@ -1,4 +1,0 @@
-fuska
-=====
-
-Framework PHP Brasileiro
