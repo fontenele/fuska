@@ -227,7 +227,8 @@ class App {
         self::$layout->basePath = self::$router->basePath;
         self::$layout->theme = self::$config['system']['view']['theme'];
         self::$layout->themePath = self::$router->basePath . 'themes/' . self::$config['system']['view']['theme'] . '/';
-        self::$layout->env = APP_VERSION;
+        self::$layout->env = APP_ENV;
+        self::$layout->version = APP_VERSION;
     }
 
     public static function callAction($controller, $action, $request) {

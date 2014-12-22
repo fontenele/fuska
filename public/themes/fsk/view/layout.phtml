@@ -33,12 +33,14 @@
             </nav>                    
 
         </div>
+        <div id="cache" style="display: none;"><div class="html"></div></div>
         <div id="layout" style="height: 400px"></div>
         <script>
             var basePath = "<?php echo $this->basePath ?>";
             var theme = "<?php echo $this->theme ?>";
             var themePath = "<?php echo $this->themePath ?>";
             var env = "<?php echo $this->env ?>";
+            var version = "<?php echo $this->version ?>";
         </script>
         <script data-main="public/js/app" src="<?php echo $this->basePath ?>vendor/requirejs/require.js"></script>
     </body>
