@@ -2,25 +2,25 @@
     <div class="form-group col-xs-6">
         <div class="control-label col-xs-3">Nome: </div>
         <div class="col-xs-7">
-            <input type="text" name="input-name" class="form-control" value="{{name}}" />
+            <input type="text" name="input-name" class="form-control" value="{{dadosPessoais.name}}" />
         </div>
     </div>
     <div class="form-group col-xs-6">
         <div class="control-label col-xs-3">País: </div>
         <div class="col-xs-7">
-            <input type="text" country="input-country" class="form-control" value="{{country}}" />
+            <input type="text" country="input-country" class="form-control" value="{{dadosPessoais.country}}" />
         </div>
     </div>
     <div class="form-group col-xs-6">
         <div class="control-label col-xs-3">Estado: </div>
         <div class="col-xs-7">
-            <input type="text" state="input-state" class="form-control" value="{{state}}" />
+            <input type="text" state="input-state" class="form-control" value="{{dadosPessoais.state}}" />
         </div>
     </div>
     <div class="form-group col-xs-6">
         <div class="control-label col-xs-3">Cidade: </div>
         <div class="col-xs-7">
-            <input type="text" city="input-city" class="form-control" value="{{city}}" />
+            <input type="text" city="input-city" class="form-control" value="{{dadosPessoais.city}}" />
         </div>
     </div>
     <hr class="hr" />
@@ -29,4 +29,15 @@
             <button class="btn btn-default col-xs-12">Salvar</button>
         </div>
     </div>
+    <hr class="hr" />
+    <ul>
+        {{#lista}}
+        <li>{{.}}</li>
+        {{/lista}}
+    </ul>
+    <ul>
+        {{#usuarios}}
+        <li>{{nome}} {{sobrenome}}</li>
+        {{/usuarios}}
+    </ul>
 </div>

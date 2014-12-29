@@ -5,7 +5,9 @@ define(['backbone', 'mustache', 'jquery'], function(Backbone, Mustache) {
     }
     Renderer = Mustache;
     $.fn.render = function(data) {
-        this.html(Renderer.render(this.html(), data));
+        var _tpl = this.html();
+        Renderer.parse(_tpl);
+        this.html(Renderer.render(_tpl, data));
     };
     return Renderer;
 });

@@ -15,6 +15,22 @@ class IndexController extends \Fuska\Mvc\Controller {
             'state' => 'DF',
             'city' => 'Brasília'
         ];
+        $this->view->lista = [
+            'lala',
+            'lele',
+            'lili',
+            'lolo',
+            'lulu'
+        ];
+        
+        $this->view->usuarios = [
+            ['nome' => 'Guilherme', 'sobrenome' => 'Fontenele'],
+            ['nome' => 'Tereza', 'sobrenome' => 'Marques'],
+            ['nome' => 'Ana', 'sobrenome' => 'Caroliny'],
+            ['nome' => 'Juliana', 'sobrenome' => 'Souza'],
+            ['nome' => 'Marcela', 'sobrenome' => 'Brawn']
+        ];
+        
         return $this->view;
     }
 
