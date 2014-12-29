@@ -1,3 +1,4 @@
-body {
-    background-color: blue;
+.hr {
+    border-top: 1px solid #ddd;
+    clear: both;
 }

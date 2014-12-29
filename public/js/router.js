@@ -1,15 +1,16 @@
-define(['backbone'], function (Backbone) {
-    var go = function (url, target) {
+define(['backbone'], function(Backbone) {
+    var go = function(url, target) {
+        x().logWithTitle('Opening ' + url + (target ? " on " + target : ""));
         require([
             'text!' + basePath + url + '?type=html&t=' + (new Date()).getTime(),
             'json!' + basePath + url + '?type=json&t=' + (new Date()).getTime(),
             'cssLoader'
-        ], function (html, json, cssLoader) {
+        ], function(html, json, cssLoader) {
             if (target) {
                 Layout.content(target, html);
             } else {
                 $('#cache .html').html(html);
-                $.each($('#cache .html').find('[data-block-target]'), function (i, item) {
+                $.each($('#cache .html').find('[data-block-target]'), function(i, item) {
                     var $html = $('<div>').append($(item)).removeAttr('data-block-target');
                     Layout.content($(item).data('block-target'), $html.html());
                 });
@@ -24,9 +25,9 @@ define(['backbone'], function (Backbone) {
             $('head link[data-tela]').remove();
             cssLoader.addCss(json.files.css, true);
 
-            require(json.files.js, function (objTela) {
+            require(json.files.js, function(objTela) {
                 if (objTela.init && typeof objTela.init === 'function') {
-                    console.log(objTela);
+                    objTela.request = json.result;
                     objTela.init();
                 }
             });

@@ -1,4 +1,32 @@
-<div data-block-target="main" id="segunda-tela">
-    Nome: {{name}}
-    <input type="{{input-type}}" name="{{input-name}}" />
+<div data-block-target="main" id="segunda-tela" class="form-horizontal">
+    <div class="form-group col-xs-6">
+        <div class="control-label col-xs-3">Nome: </div>
+        <div class="col-xs-7">
+            <input type="text" name="input-name" class="form-control" value="{{name}}" />
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="control-label col-xs-3">País: </div>
+        <div class="col-xs-7">
+            <input type="text" country="input-country" class="form-control" value="{{country}}" />
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="control-label col-xs-3">Estado: </div>
+        <div class="col-xs-7">
+            <input type="text" state="input-state" class="form-control" value="{{state}}" />
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <div class="control-label col-xs-3">Cidade: </div>
+        <div class="col-xs-7">
+            <input type="text" city="input-city" class="form-control" value="{{city}}" />
+        </div>
+    </div>
+    <hr class="hr" />
+    <div class="form-group col-xs-12">
+        <div class="col-xs-offset-5 col-xs-2">
+            <button class="btn btn-default col-xs-12">Salvar</button>
+        </div>
+    </div>
 </div>

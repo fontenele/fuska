@@ -22,6 +22,11 @@ class Router {
     /**
      * @var string
      */
+    public $jsBasePath;
+
+    /**
+     * @var string
+     */
     public $serverName;
 
     /**
@@ -81,15 +86,17 @@ class Router {
 
         if ($_SERVER['SCRIPT_NAME'] == '/index.php') {
             $this->basePath = "{$httpScheme}://{$_SERVER['SERVER_NAME']}/";
+            $this->jsBasePath = $this->basePath;
         } else {
             $host = str_replace('/public/index.php', '', $_SERVER['SCRIPT_NAME']);
             $this->basePath = "{$httpScheme}://{$_SERVER['HTTP_HOST']}{$host}/";
+            $this->jsBasePath = $this->basePath . 'public/';
         }
         $appName = str_replace(array('/public', '/index.php'), '', $_SERVER['SCRIPT_NAME']);
         if (!$appName) {
             $appName = $_SERVER['SERVER_NAME'];
         }
-        $this->appName = $appName;
+        $this->appName = str_replace('/', '', $appName);
         $this->requestUri = preg_replace('/\\' . $appName . '/', '', $_SERVER['REQUEST_URI'], 1);
         $this->default = $config['default'];
         $this->defaultAuth = $config['defaultAuth'];

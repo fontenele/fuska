@@ -1,15 +1,15 @@
-define(function () {
+define(function() {
     return {
         'name': 'fsk',
-        'initLayout': function () {
-            require(['cssLoader', 'layout'], function (cssLoader) {
+        'initLayout': function() {
+            require(['cssLoader', 'layout'], function(cssLoader) {
                 cssLoader.addCss([
-                    basePath + 'public/vendor/bootstrap/css/bootstrap.min.css',
-                    basePath + 'public/vendor/w2ui/w2ui.min.css'
+                    jsBasePath + 'vendor/bootstrap/css/bootstrap.min.css',
+                    jsBasePath + 'vendor/w2ui/w2ui.min.css'
                 ]);
             });
         },
-        'getName': function () {
+        'getName': function() {
             return this.name;
         }
     };

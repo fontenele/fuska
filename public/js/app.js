@@ -1,5 +1,5 @@
 requirejs.config({
-    'baseUrl': basePath + 'public',
+    'baseUrl': jsBasePath,
     'urlArgs': "v=" + version,
     'theme': "./../themes/" + theme + "/js/theme",
     'paths': {
@@ -9,6 +9,7 @@ requirejs.config({
         'collection': 'js/helper/collection',
         'css': 'vendor/requirejs/css',
         'cssLoader': 'js/helper/CSSLoader',
+        'debug': 'js/debug',
         'domReady': 'vendor/requirejs/domReady',
         'font': 'vendor/requirejs/font',
         'goog': 'vendor/requirejs/goog',
@@ -45,19 +46,19 @@ requirejs.config({
     }
 });
 
-requirejs.onError = function (err) {
-    if (err.requireType === 'timeout') {
-        console.log('modules: ' + err.requireModules);
-    }
-    console.warn('ERROR', err);
-    //throw err;
-};
+//requirejs.onError = function(err) {
+//    if (err.requireType === 'timeout') {
+//        console.log('modules: ' + err.requireModules);
+//    }
+//    //console.warn('ERROR', err);
+//    throw err;
+//};
 
-require.onResourceLoad = function (context, map, i, j) {
-};
+//require.onResourceLoad = function(context, map, i, j) {
+//};
 
-define([requirejs.s.contexts._.config.theme, 'router', 'backbone'], function (theme, router) {
-    $(document).on('click', '.link-ajax', function () {
+define([requirejs.s.contexts._.config.theme, 'router', 'backbone', 'debug'], function(theme, router) {
+    $(document).on('click', '.link-ajax', function() {
         var url = $(this).attr('href');
         var target = $(this).data('target');
         router.go(url, target);

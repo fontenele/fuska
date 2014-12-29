@@ -1,4 +1,4 @@
-define(['backbone'], function (Backbone) {
+define(['backbone'], function(Backbone) {
     var Model = Backbone.Model.extend({
         'el': null,
         'urlRoot': null

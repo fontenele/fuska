@@ -1,5 +1,5 @@
 SetEnv APP_ENV "dev"
-SetEnv APP_VERSION "v0.0.1"
+SetEnv APP_VERSION "v0.0.1A"
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]

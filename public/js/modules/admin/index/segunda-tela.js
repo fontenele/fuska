@@ -1,18 +1,9 @@
-define(['view', 'mustache'], function (View, Mustache) {
-    var view = View.extend({
-        el: $('#segunda-tela'),
-        template: $('#segunda-tela').html(),
-        initialize: function () {
-            this.render();
-        },
-        render: function () {
-            $(this.el).html(Mustache.to_html(this.template, {'name': 'Teste', 'input-type': 'text', 'input-name': 'nm-usuario'}));
-        }
-    });
-
+define(['view'], function() {
     return {
-        'view': new view,
-        'init': function (options) {
+        'request': {},
+        'init': function(options) {
+            $('#segunda-tela').render(this.request.dadosPessoais);
+            console.log(this.request.dadosPessoais);
             return this;
         }
     };

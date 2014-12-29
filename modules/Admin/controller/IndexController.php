@@ -9,7 +9,12 @@ class IndexController extends \Fuska\Mvc\Controller {
     }
 
     public function segundaTela() {
-        $this->view->teste = [1, 2, 3];
+        $this->view->dadosPessoais = [
+            'name' => 'Guilherme Fontenele',
+            'country' => 'Brasil',
+            'state' => 'DF',
+            'city' => 'Brasília'
+        ];
         return $this->view;
     }
 
