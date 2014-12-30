@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>RIA</title>
+        <link href="<?php echo $this->basePath ?>vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
     </head>
     <body>
         <style>
@@ -13,7 +14,7 @@
                 margin-bottom: 4px;
             }
         </style>
-        <div id="toolbar">
+<!--        <div id="toolbar">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -32,9 +33,10 @@
                 </div>
             </nav>
 
-        </div>
+        </div>-->
         <div id="cache" style="display: none;"><div class="html"></div></div>
-        <div id="layout" style="height: 400px"></div>
+        <div id="layout" style="position: absolute; top: 5px; left: 0; bottom: 5px; right: 0;"></div>
+<!--        <div id="layouts" style="height: 100%;"></div>-->
         <script>
             var basePath = "<?php echo $this->basePath ?>";
             var jsBasePath = "<?php echo $this->jsBasePath ?>";
@@ -43,6 +45,6 @@
             var env = "<?php echo $this->env ?>";
             var version = "<?php echo $this->version ?>";
         </script>
-        <script data-main="<?php echo $this->jsBasePath ?>js/app" src="<?php echo $this->basePath ?>vendor/requirejs/require.js"></script>
+        <script data-main="<?php echo $this->jsBasePath ?>js/app.js?v=<?php echo $this->version ?>" src="<?php echo $this->basePath ?>vendor/requirejs/require.js"></script>
     </body>
 </html>

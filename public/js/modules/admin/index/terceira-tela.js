@@ -1,7 +1,7 @@
 define(['view'], function (View) {
-    console.info('terceira tela');
     return {
         'init': function (options) {
+            Layout.hide('left');
             return this;
         }
     };

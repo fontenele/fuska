@@ -1,9 +1,11 @@
-define(['view'], function() {
+define(['view'], function () {
     return {
         'request': {},
-        'init': function(options) {
-            $('#segunda-tela').render(this.request);
-            //console.log(this.request.dadosPessoais);
+        'init': function (options) {
+            $('#segunda-tela-main').render(this.request);
+            if (Layout.get('left').hidden) {
+                Layout.show('left');
+            }
             return this;
         }
     };

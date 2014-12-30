@@ -1,7 +1,7 @@
 requirejs.config({
     'baseUrl': jsBasePath,
     'urlArgs': "v=" + version,
-    'theme': "./../themes/" + theme + "/js/theme",
+    'theme': "./../themes/" + theme + "/js/theme.js",
     'paths': {
         'async': 'vendor/requirejs/async',
         'backbone': 'vendor/requirejs/backbone',

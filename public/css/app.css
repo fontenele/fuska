@@ -1,0 +1,7 @@
+body {
+    background-color: #ddd;
+}
+
+#layout_layout_panel_top .w2ui-panel-content {
+    overflow: hidden !important;
+}
