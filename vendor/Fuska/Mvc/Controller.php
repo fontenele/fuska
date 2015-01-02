@@ -27,10 +27,15 @@ abstract class Controller {
     }
 
     public function init() {
-        
+
     }
 
     public function createView() {
+        if (\Fuska\App::$isCLI) {
+            $this->view = new \Fuska\View\CLI($_SERVER['argv']);
+            return;
+        }
+
         // Template name
         $template = strpos($this->action, '-') === false ? \Fuska\System\String::camelToDash($this->action) : $this->action;
         $arrClass = explode('\\', get_class($this));
@@ -53,12 +58,6 @@ abstract class Controller {
                 default:
                     $this->view = new \Fuska\View\Html("{$moduleBasePath}view/{$_controller}/{$template}.phtml", ['request' => $this->request]);
             }
-
-//            if (\Fuska\App::$request->isAjax()) {
-//                $this->view = new \Fuska\View\Ria(['request' => $this->request]);
-//            } else {
-//                $this->view = new \Fuska\View\Html("{$moduleBasePath}view/{$_controller}/{$template}.phtml", ['request' => $this->request]);
-//            }
         }
     }
 

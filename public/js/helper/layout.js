@@ -3,6 +3,8 @@ define(function () {
     if (Layout) {
         return Layout;
     }
+    
+    w2utils.locale(jsBasePath + 'vendor/w2ui/locale/pt-br.json')
 
     var pstyle = 'border: 1px solid #dfdfdf; padding: 6px;';
     $('#layout').w2layout({
@@ -15,6 +17,11 @@ define(function () {
             {type: 'right', size: '20%', resizable: true, hidden: true, style: pstyle, content: ''},
             {type: 'bottom', size: '0%', resizable: true, hidden: true, style: pstyle, content: ''}
         ]
+    });
+    
+    $(document).on('click', '.layout-toggle-left', function() {
+        w2ui.layout.toggle('left');
+        return false;
     });
 
     Layout = w2ui.layout;

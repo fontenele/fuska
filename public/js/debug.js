@@ -42,7 +42,7 @@ define(['jquery'], function($) {
             alert(args);
         }
     };
-    $.logDebug = function() {
+    $.debug = function() {
         if (window['console'] && window['console'].debug) {
             return console.debug(arguments.length == 1 ? arguments[0] : arguments);
         } else {
@@ -53,7 +53,7 @@ define(['jquery'], function($) {
             alert(args);
         }
     };
-    $.logInfo = function() {
+    $.info = function() {
         if (window['console'] && window['console'].info) {
             return console.info(arguments.length == 1 ? arguments[0] : arguments);
         } else {
@@ -64,7 +64,7 @@ define(['jquery'], function($) {
             alert(args);
         }
     };
-    $.logWarn = function() {
+    $.warn = function() {
         if (window['console'] && window['console'].warn) {
             return console.warn(arguments.length == 1 ? arguments[0] : arguments);
         } else {
@@ -75,7 +75,7 @@ define(['jquery'], function($) {
             alert(args);
         }
     };
-    $.logError = function() {
+    $.error = function() {
         if (window['console'] && window['console'].error) {
             return console.error(arguments.length == 1 ? arguments[0] : arguments);
         } else {
@@ -87,23 +87,23 @@ define(['jquery'], function($) {
         }
     };
     $.debugStart = function(name) {
-        $.logWarn('Iniciando debug: ' + name);
+        $.warn('Iniciando debug: ' + name);
         console.time(name);
     };
     $.debugFinish = function(name) {
         console.group(name);
-        $.logWarn('Debug: ' + name);
+        $.warn('Debug: ' + name);
         console.trace();
         console.timeEnd(name);
         console.groupEnd();
     };
     $.debugProfileStart = function() {
-        $.logWarn('Iniciando debug profile: ' + name);
+        $.warn('Iniciando debug profile: ' + name);
         console.profile();
     };
     $.debugProfileFinish = function() {
         console.group(name);
-        $.logWarn('Finalizado debug profile: ' + name);
+        $.warn('Finalizado debug profile: ' + name);
         console.profileEnd(name);
         console.groupEnd();
     };

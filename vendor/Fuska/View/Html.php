@@ -72,7 +72,7 @@ class Html extends \Fuska\System\ArrayObject {
         $_controller = substr(\Fuska\System\String::camelToDash($arrController[2]), 0, -11);
         $_action = \Fuska\System\String::camelToDash($action);
         $modulePath = isset(\Fuska\App::$config['modulesPath'][$arrController[0]]) ? \Fuska\App::$config['modulesPath'][$arrController[0]] : null;
-        
+
         // CSS
         if (file_exists(sprintf(APP_PATH . "public/%s/modules/{$_module}/{$_controller}/{$_action}.%s", 'css', 'css'))) {
             $jsAndCss['css'][] = sprintf(\Fuska\App::$router->basePath . "%s/modules/{$_module}/{$_controller}/{$_action}.%s", 'css', 'css');

@@ -2,27 +2,18 @@
 
 namespace Fuska\System;
 
-class Collection extends ArrayObject {
+class Collection extends \Doctrine\Common\Collections\ArrayCollection {
 
-    public function sortBy($field = null, $method = null) {
-        $newData = [];
-        foreach ($this->getArrayCopy() as $row) {
-            $index = null;
-            switch (true) {
-                case is_array($row) && isset($row[$field]):
-                    $index = $row[$field];
-                    break;
-                case $method && method_exists($row, $method):
-                    $index = $row->$method();
-                    break;
-                case $field && property_exists($row, $field):
-                    $index = $row->$field;
-                    break;
+    public function normalizeDataToGrid() {
+        $this->map(function($item) {
+            $item->recid = $item->getId();
+            foreach ($item as &$_input) {
+                if ($_input instanceof \DateTime) {
+                    $_input = $_input->format(\Fuska\App::$config['system']['view']['format']['datetime']);
+                }
             }
-            $newData[$index] = $row;
-        }
-        ksort($newData);
-        $this->exchangeArray($newData);
+        });
+        return $this;
     }
 
 }

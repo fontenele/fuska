@@ -3,7 +3,7 @@ define(function () {
         var link = document.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
-        link.href = url;
+        link.href = url + "?v=" + version;
         if (cssDeTela === true) {
             $(link).attr('data-tela', true);
         }

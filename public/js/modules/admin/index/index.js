@@ -1,7 +1,8 @@
-define(['view'], function () {
+define(['view'], function() {
     return {
         'request': {},
-        'init': function (options) {
+        'init': function(options) {
+            var that = this;
             $('#app-top').render(this.request);
             $('#app-main').render(this.request);
             Layout.show('top', true);
@@ -15,73 +16,40 @@ define(['view'], function () {
                 name: 'menu-left',
                 nodes: [
                     {
-                        id: 'level-1',
-                        text: 'Home',
+                        id: 'admin',
+                        text: 'Administração',
                         img: 'icon-folder',
                         expanded: true,
                         group: true,
                         nodes: [
                             {
-                                id: 'level-1-1',
-                                text: 'Segunda Tela',
-                                icon: 'fa fa-home',
-                                url: 'admin/index/segunda-tela'
-                            },
-                            {
-                                id: 'level-1-2',
-                                text: 'Terceira Tela',
-                                icon: 'fa fa-star',
-                                url: 'admin/index/terceira-tela'
-                            }
-                        ]
-                    },
-                    {
-                        id: 'level-2',
-                        text: 'Level 2',
-                        img: 'icon-folder',
-                        expanded: true,
-                        group: true,
-                        nodes: [
-                            {
-                                id: 'level-2-1',
-                                text: 'Level 2.1',
+                                id: 'admin/usuario',
+                                text: 'Usuários',
                                 img: 'icon-folder',
-                                count: 3,
+                                expanded: true,
+                                count: this.request.totals.usuarios,
                                 nodes: [
                                     {
-                                        id: 'level-2-1-1',
-                                        text: 'Level 2.1.1',
+                                        id: 'admin/usuario/cadastro',
+                                        text: 'Cadastro',
+                                        url: 'admin/usuario/cadastro',
                                         icon: 'fa fa-star-o'
                                     },
                                     {
-                                        id: 'level-2-1-2',
-                                        text: 'Level 2.1.2',
+                                        id: 'admin/usuario/relatorio',
+                                        text: 'Relatório',
                                         icon: 'fa fa-star-o',
-                                        count: 67
-                                    },
-                                    {
-                                        id: 'level-2-1-3',
-                                        text: 'Level 2.1.3',
-                                        icon: 'fa fa-star-o'
+                                        url: 'admin/usuario/relatorio'
                                     }
                                 ]
-                            },
-                            {
-                                id: 'level-2-2',
-                                text: 'Level 2.2',
-                                icon: 'fa fa-star-o'
-                            },
-                            {
-                                id: 'level-2-3',
-                                text: 'Level 2.3',
-                                icon: 'fa fa-star-o'
                             }
                         ]
                     }
                 ],
-                onClick: function (event) {
-                    if(event.node.url) {
-                        Router.go(event.node.url);
+                onClick: function(event) {
+                    if (event.node.url) {
+                        var target, data = event.originalEvent && event.originalEvent.data ? event.originalEvent.data : {};
+                        Router.go(event.node.url, target, data);
                     }
                 }
             });

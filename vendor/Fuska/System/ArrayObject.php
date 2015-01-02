@@ -19,6 +19,20 @@ class ArrayObject extends \ArrayObject {
 
     public function __set($name, $value = null) {
         $this->offsetSet($name, $value);
+        return $this;
+    }
+
+    public function exchangeArray($input = null) {
+        if (!$input) {
+            return $this;
+        }
+        foreach ($input as &$_input) {
+            if ($_input instanceof \DateTime) {
+                $_input = $_input->format(\Fuska\App::$config['system']['view']['format']['datetime']);
+            }
+        }
+        parent::exchangeArray($input);
+        return $this;
     }
 
 }

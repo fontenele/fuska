@@ -5,6 +5,8 @@ namespace Admin\Controller;
 class IndexController extends \Fuska\Mvc\Controller {
 
     public function index() {
+        $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
+        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
         return $this->view;
     }
 
@@ -22,7 +24,7 @@ class IndexController extends \Fuska\Mvc\Controller {
             'lolo',
             'lulu'
         ];
-        
+
         $this->view->usuarios = [
             ['nome' => 'Guilherme', 'sobrenome' => 'Fontenele'],
             ['nome' => 'Tereza', 'sobrenome' => 'Marques'],
@@ -30,7 +32,7 @@ class IndexController extends \Fuska\Mvc\Controller {
             ['nome' => 'Juliana', 'sobrenome' => 'Souza'],
             ['nome' => 'Marcela', 'sobrenome' => 'Brawn']
         ];
-        
+
         return $this->view;
     }
 

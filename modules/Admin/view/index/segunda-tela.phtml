@@ -1,34 +1,36 @@
 <div data-block-target="main" id="segunda-tela-main" class="form-horizontal">
-    <div class="form-group col-xs-6">
-        <div class="control-label col-xs-3">Nome: </div>
-        <div class="col-xs-7">
-            <input type="text" name="input-name" class="form-control" value="{{dadosPessoais.name}}" />
+    <form>
+        <div class="form-group col-xs-6">
+            <div class="control-label col-xs-3">Nome: </div>
+            <div class="col-xs-7">
+                <input type="text" name="input-name" class="form-control" value="{{dadosPessoais.name}}" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="control-label col-xs-3">País: </div>
-        <div class="col-xs-7">
-            <input type="text" name="input-country" class="form-control" value="{{dadosPessoais.country}}" />
+        <div class="form-group col-xs-6">
+            <div class="control-label col-xs-3">País: </div>
+            <div class="col-xs-7">
+                <input type="text" name="input-country" class="form-control" value="{{dadosPessoais.country}}" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="control-label col-xs-3">Estado: </div>
-        <div class="col-xs-7">
-            <input type="text" name="input-state" class="form-control" value="{{dadosPessoais.state}}" />
+        <div class="form-group col-xs-6">
+            <div class="control-label col-xs-3">Estado: </div>
+            <div class="col-xs-7">
+                <input type="text" name="input-state" class="form-control" value="{{dadosPessoais.state}}" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-xs-6">
-        <div class="control-label col-xs-3">Cidade: </div>
-        <div class="col-xs-7">
-            <input type="text" name="input-city" class="form-control" value="{{dadosPessoais.city}}" />
+        <div class="form-group col-xs-6">
+            <div class="control-label col-xs-3">Cidade: </div>
+            <div class="col-xs-7">
+                <input type="text" name="input-city" class="form-control" value="{{dadosPessoais.city}}" />
+            </div>
         </div>
-    </div>
-    <hr class="hr" />
-    <div class="form-group col-xs-12">
-        <div class="col-xs-offset-5 col-xs-2">
-            <button class="btn btn-default col-xs-12">Salvar</button>
+        <hr class="hr" />
+        <div class="form-group col-xs-12">
+            <div class="col-xs-offset-5 col-xs-2">
+                <button class="btn btn-default col-xs-12">Salvar</button>
+            </div>
         </div>
-    </div>
+    </form>
     <hr class="hr" />
     <ul>
         {{#lista}}

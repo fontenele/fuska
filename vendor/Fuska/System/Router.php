@@ -71,33 +71,35 @@ class Router {
      * @param array $config
      */
     public function config($config = []) {
-        switch (true) {
-            case isset($_SERVER['HTTPS']) && in_array($_SERVER['HTTPS'], ['on', '1', 1]):
-            case isset($_SERVER['SERVER_PORT']) && in_array($_SERVER['SERVER_PORT'], self::$sslPorts):
-                $this->isSSL = true;
-                break;
-            default:
-                $this->isSSL = false;
-                break;
-        }
+        if (!\Fuska\App::$isCLI) {
+            switch (true) {
+                case isset($_SERVER['HTTPS']) && in_array($_SERVER['HTTPS'], ['on', '1', 1]):
+                case isset($_SERVER['SERVER_PORT']) && in_array($_SERVER['SERVER_PORT'], self::$sslPorts):
+                    $this->isSSL = true;
+                    break;
+                default:
+                    $this->isSSL = false;
+                    break;
+            }
 
-        $httpScheme = $this->isSSL ? 'https' : 'http';
-        $this->serverName = "{$httpScheme}://{$_SERVER['SERVER_NAME']}";
+            $httpScheme = $this->isSSL ? 'https' : 'http';
+            $this->serverName = "{$httpScheme}://{$_SERVER['SERVER_NAME']}";
 
-        if ($_SERVER['SCRIPT_NAME'] == '/index.php') {
-            $this->basePath = "{$httpScheme}://{$_SERVER['SERVER_NAME']}/";
-            $this->jsBasePath = $this->basePath;
-        } else {
-            $host = str_replace('/public/index.php', '', $_SERVER['SCRIPT_NAME']);
-            $this->basePath = "{$httpScheme}://{$_SERVER['HTTP_HOST']}{$host}/";
-            $this->jsBasePath = $this->basePath . 'public/';
+            if ($_SERVER['SCRIPT_NAME'] == '/index.php') {
+                $this->basePath = "{$httpScheme}://{$_SERVER['SERVER_NAME']}/";
+                $this->jsBasePath = $this->basePath;
+            } else {
+                $host = str_replace('/public/index.php', '', $_SERVER['SCRIPT_NAME']);
+                $this->basePath = "{$httpScheme}://{$_SERVER['HTTP_HOST']}{$host}/";
+                $this->jsBasePath = $this->basePath . 'public/';
+            }
+            $appName = str_replace(array('/public', '/index.php'), '', $_SERVER['SCRIPT_NAME']);
+            if (!$appName) {
+                $appName = $_SERVER['SERVER_NAME'];
+            }
+            $this->appName = str_replace('/', '', $appName);
+            $this->requestUri = preg_replace('/\\' . $appName . '/', '', $_SERVER['REQUEST_URI'], 1);
         }
-        $appName = str_replace(array('/public', '/index.php'), '', $_SERVER['SCRIPT_NAME']);
-        if (!$appName) {
-            $appName = $_SERVER['SERVER_NAME'];
-        }
-        $this->appName = str_replace('/', '', $appName);
-        $this->requestUri = preg_replace('/\\' . $appName . '/', '', $_SERVER['REQUEST_URI'], 1);
         $this->default = $config['default'];
         $this->defaultAuth = $config['defaultAuth'];
     }
@@ -105,6 +107,17 @@ class Router {
     /**
      */
     public function defineControllerAndAction() {
+        if (\Fuska\App::$isCLI) {
+            $_uri = $_SERVER['argv'][1];
+            $uri = $this->parseRoute($_uri);
+            $this->controller = $uri['controller'];
+            $this->action = $uri['action'];
+            if ($uri['params']) {
+                \Fuska\App::$request->setQuery($uri['params']);
+            }
+            return;
+        }
+
         $_uri = $this->default;
         if ($this->requestUri && $this->requestUri != '/') {
             $_uri = $this->requestUri;

@@ -44,12 +44,18 @@
             <datagrid>
                 <rowsPerPage>15</rowsPerPage>
             </datagrid>
+            <format>
+                <date>m/d/Y</date>
+                <datetime>m/d/Y h:i:s</datetime>
+            </format>
         </view>
         <db>
-            <type>pgsql</type>
-            <dsn>pgsql:dbname=kf;host=localhost</dsn>
-            <username>postgres</username>
-            <password>postgres</password>
+            <host>127.0.0.1</host>
+            <driver>pdo_mysql</driver>
+            <port>8889</port>
+            <user>root</user>
+            <password>root</password>
+            <dbname>fuska</dbname>
         </db>
     </system>
 </config>

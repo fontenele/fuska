@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>RIA</title>
-        <link href="<?php echo $this->basePath ?>vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+        <title>Fuska</title>
+        <link href="<?php echo $this->basePath ?>vendor/fontawesome/css/font-awesome.min.css?v=<?php echo $this->version ?>" rel="stylesheet" />
     </head>
     <body>
         <style>
@@ -14,29 +14,8 @@
                 margin-bottom: 4px;
             }
         </style>
-<!--        <div id="toolbar">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">
-                            <img alt="Br-Flow" src="...">
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a class="link-ajax" href="admin/index/segunda-tela">Segunda Tela</a></li>
-                            <li><a class="link-ajax" href="admin/index/terceira-tela">Terceira Tela</a></li>
-                            <li><a class="link-ajax" data-target="left" href="admin/index/segunda-tela">Segunda Tela - Left</a></li>
-                            <li><a class="link-ajax" data-target="left" href="admin/index/terceira-tela">Terceira Tela - Left</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-        </div>-->
         <div id="cache" style="display: none;"><div class="html"></div></div>
         <div id="layout" style="position: absolute; top: 5px; left: 0; bottom: 5px; right: 0;"></div>
-<!--        <div id="layouts" style="height: 100%;"></div>-->
         <script>
             var basePath = "<?php echo $this->basePath ?>";
             var jsBasePath = "<?php echo $this->jsBasePath ?>";

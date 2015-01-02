@@ -42,6 +42,11 @@ class App {
     public static $db;
 
     /**
+     * @var bool
+     */
+    public static $isCLI;
+
+    /**
      * @var boolean
      */
     public static $logged = false;
@@ -76,6 +81,9 @@ class App {
                 }
             }
         });
+        if (php_sapi_name() == 'cli') {
+            self::$isCLI = true;
+        }
     }
 
     public static function setConstants() {
@@ -86,6 +94,10 @@ class App {
         define('LOGS_PATH', dirname(__DIR__) . '/logs/');
         defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') : 'prod'));
         defined('APP_VERSION') || define('APP_VERSION', (getenv('APP_VERSION') ? getenv('APP_VERSION') : 'v0.0.0'));
+        if (APP_ENV != 'prod' && APP_ENV != 'production') {
+            error_reporting(E_ALL);
+            ini_set('display_errors', true);
+        }
     }
 
     public static function loadVendors() {
@@ -116,13 +128,13 @@ class App {
             if (in_array($filename, $filesIgnore)) {
                 continue;
             }
-            if (System\File::fileExists($filename, APPLICATION_ENV)) {
+            if (System\File::fileExists($filename, APP_ENV)) {
                 $filesIgnore[] = $filename;
-                $filename = System\File::getFileName($filename, APPLICATION_ENV);
+                $filename = System\File::getFileName($filename, APP_ENV);
                 $filesIgnore[] = $filename;
             } else {
                 foreach ($envs as $env) {
-                    if ($env == APPLICATION_ENV) {
+                    if ($env == APP_ENV) {
                         continue;
                     }
                     if (System\File::fileExists($filename, $env)) {
@@ -181,13 +193,13 @@ class App {
                     if (in_array($filename, $filesIgnore)) {
                         continue;
                     }
-                    if (System\File::fileExists($filename, APPLICATION_ENV)) {
+                    if (System\File::fileExists($filename, APP_ENV)) {
                         $filesIgnore[] = $filename;
-                        $filename = System\File::getFileName($filename, APPLICATION_ENV);
+                        $filename = System\File::getFileName($filename, APP_ENV);
                         $filesIgnore[] = $filename;
                     } else {
                         foreach ($envs as $env) {
-                            if ($env == APPLICATION_ENV) {
+                            if ($env == APP_ENV) {
                                 continue;
                             }
                             if (System\File::fileExists($filename, $env)) {
@@ -210,6 +222,8 @@ class App {
 
     public static function parseAndProcessResponse() {
         switch (true) {
+            case self::$isCLI:
+                break;
             case (!self::$request->get->type || (self::$request->get->type && !in_array(self::$request->get->type, ['html', 'json']))):
                 self::createLayout();
                 break;
@@ -258,15 +272,18 @@ class App {
 
         // Call action
         $view = $obj->$action($request);
-        if ($view instanceof View\Json || $view instanceof View\Ria || ($view instanceof View\Html && !self::$layout)) {
-            // Render Json output
-            echo $view->render();
-        } elseif (self::$layout) {
-            // Set content var
-            self::$layout->content = $view ? $view->render() : $obj->view->render();
-            // Render layout with html headers
-            echo self::$layout->renderWithHeader();
+        switch (true) {
+            case ($view instanceof View\Json || $view instanceof View\Ria || $view instanceof View\CLI || ($view instanceof View\Html && !self::$layout)):
+                // Render Json output
+                echo $view->render();
+                break;
+            case self::$layout:
+                // Set content var
+                self::$layout->content = $view ? $view->render() : $obj->view->render();
+                // Render layout with html headers
+                echo self::$layout->renderWithHeader();
         }
+
         die;
     }
 

@@ -5,3 +5,9 @@ body {
 #layout_layout_panel_top .w2ui-panel-content {
     overflow: hidden !important;
 }
+
+.w2ui-form .w2ui-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
