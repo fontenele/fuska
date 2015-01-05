@@ -14,6 +14,7 @@ define(['view'], function () {
             }
             $('#app-left').w2sidebar({
                 name: 'menu-left',
+                topHTML: '<a class="layout-toggle-top pull-right btn btn-default btn-xs" href="#">Mostrar/Esconder Topo</a>',
                 nodes: [
                     {
                         id: 'admin',
@@ -40,6 +41,27 @@ define(['view'], function () {
                                         text: 'Relatório',
                                         icon: 'fa fa-star-o',
                                         url: 'admin/usuario/relatorio'
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'admin/grupo-usuarios',
+                                text: 'Grupos de Usuários',
+                                img: 'icon-folder',
+                                expanded: true,
+                                count: this.request.totals.grupoUsuarios,
+                                nodes: [
+                                    {
+                                        id: 'admin/grupo-usuarios/cadastro',
+                                        text: 'Cadastro',
+                                        url: 'admin/grupo-usuarios/cadastro',
+                                        icon: 'fa fa-star-o'
+                                    },
+                                    {
+                                        id: 'admin/grupo-usuarios/relatorio',
+                                        text: 'Relatório',
+                                        url: 'admin/grupo-usuarios/relatorio',
+                                        icon: 'fa fa-star-o'
                                     }
                                 ]
                             }

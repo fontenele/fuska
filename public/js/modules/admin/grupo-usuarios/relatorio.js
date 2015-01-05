@@ -1,13 +1,13 @@
-define(['js/models/admin/Usuario', 'backbone'], function (Usuario, Backbone) {
+define(['js/models/admin/GrupoUsuarios', 'backbone'], function (GrupoUsuarios, Backbone) {
     return {
         'request': {},
         'init': function (options) {
-            if (w2ui['grid-relatorio-usuarios']) {
-                w2ui['grid-relatorio-usuarios'].destroy();
+            if (w2ui['grid-relatorio-grupo-usuarios']) {
+                w2ui['grid-relatorio-grupo-usuarios'].destroy();
             }
-            $('#usuario-relatorio-main .grid').w2grid({
-                name: 'grid-relatorio-usuarios',
-                header: 'Relatório de Usuários',
+            $('#grupo-usuarios-relatorio-main .grid').w2grid({
+                name: 'grid-relatorio-grupo-usuarios',
+                header: 'Relatório de Grupos de Usuários',
                 reorderColumns: false,
                 show: {
                     header: true,
@@ -22,33 +22,32 @@ define(['js/models/admin/Usuario', 'backbone'], function (Usuario, Backbone) {
                 },
                 columns: [
                     {field: 'id', caption: 'ID', size: '5%', attr: "align=center", hidden: true},
-                    {field: 'login', caption: 'Login', size: '75%'},
-                    {field: 'ultimoLogin', caption: 'Últ. Login', size: '20%', attr: "align=center", render: 'datetime'}
+                    {field: 'nome', caption: 'Nome', size: '75%'},
+                    {field: 'status', caption: 'Status', size: '20%', attr: "align=center"}
                 ],
                 searches: [
                     {type: 'int', field: 'id', caption: 'ID'},
-                    {type: 'text', field: 'login', caption: 'Login'},
-                    {type: 'text', field: 'senha', caption: 'Senha'},
-                    {type: 'text', field: 'ultimoLogin', caption: 'Últ. Login'}
+                    {type: 'text', field: 'nome', caption: 'Nome'},
+                    {type: 'text', field: 'status', caption: 'Status'}
                 ],
                 records: this.request.list,
                 onAdd: function (event) {
-                    w2ui['menu-left'].click('admin/usuario/cadastro');
+                    w2ui['menu-left'].click('admin/grupo-usuarios/cadastro');
                 },
                 onEdit: function (event) {
-                    w2ui['menu-left'].click('admin/usuario/cadastro', {
+                    w2ui['menu-left'].click('admin/grupo-usuarios/cadastro', {
                         data: {id: event.recid}
                     });
                 },
                 onDelete: function (event) {
                     var selected = this.getSelection().shift();
                     event.onComplete = function (event) {
-                        var usuario = new Usuario({id: selected});
+                        var usuario = new GrupoUsuarios({id: selected});
                         usuario.delete({
                             success: function (model) {
-                                w2ui['menu-left'].get('admin/usuario').count--;
+                                w2ui['menu-left'].get('admin/grupo-usuarios').count--;
                                 w2ui['menu-left'].refresh();
-                                w2alert('Usuário excluído com sucesso.', 'Sucesso!');
+                                w2alert('Grupo de Usuários excluído com sucesso.', 'Sucesso!');
                             },
                             error: function (model, result) {
                                 w2alert(result.responseText, 'Erro!');

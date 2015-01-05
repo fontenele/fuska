@@ -23,6 +23,10 @@ define(function () {
         w2ui.layout.toggle('left');
         return false;
     });
+    $(document).on('click', '.layout-toggle-top', function() {
+        w2ui.layout.toggle('top');
+        return false;
+    });
 
     Layout = w2ui.layout;
     return Layout;
