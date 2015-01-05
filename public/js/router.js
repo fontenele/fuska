@@ -67,11 +67,10 @@ define(['backbone', 'cssLoader', 'jquery'], function (Backbone, cssLoader, $) {
         },
         addJsFiles: function (list, request, url) {
             $.each(list, function (i, item) {
-                if (require.defined(item)) {
+//                if (require.defined(item)) {
 //                    return;
-                }
+//                }
                 require([item], function (view) {
-                    $.info(view, view.init);
                     if (typeof view === 'object' && view.init && typeof view.init === 'function') {
                         view.request = request;
                         view.init();
