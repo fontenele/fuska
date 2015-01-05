@@ -5,7 +5,7 @@ namespace Admin\Service;
 class UsuarioService extends \Fuska\Mvc\Service {
 
     public function __construct() {
-        parent::__construct(\Admin\Model\Usuario::class);
+        parent::__construct("Admin\Model\Usuario");
     }
 
 }

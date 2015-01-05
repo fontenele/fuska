@@ -5,6 +5,18 @@ namespace Fuska\View;
 class Html extends \Fuska\System\ArrayObject {
 
     /**
+     *
+     * @var array
+     */
+    public $js = [];
+
+    /**
+     *
+     * @var array
+     */
+    public $css = [];
+
+    /**
      * @var string
      */
     public $template;
@@ -12,9 +24,9 @@ class Html extends \Fuska\System\ArrayObject {
     public function __construct($template = null, $vars = array()) {
         parent::__construct($vars);
         //$this->this = $this;
-        //$this->basePath = \Kf\Kernel::$router->basePath;
-        //$this->theme = \Kf\Kernel::$config['system']['view']['theme'];
-        //$this->themePath = \Kf\Kernel::$router->basePath . 'themes/' . \Kf\Kernel::$config['system']['view']['theme'] . '/';
+        //$this->basePath = \Fuska\App::$router->basePath;
+        //$this->theme = \Fuska\App::$config['system']['view']['theme'];
+        //$this->themePath = \Fuska\App::$router->basePath . 'themes/' . \Fuska\App::$config['system']['view']['theme'] . '/';
         $this->template = $template;
     }
 
@@ -65,8 +77,8 @@ class Html extends \Fuska\System\ArrayObject {
         return $partial->render();
     }
 
-    public static function loadJsAndCssFiles($controller, $action) {
-        $jsAndCss = ['css' => [], 'js' => []];
+    public function loadJsAndCssFiles($controller, $action) {
+        $jsAndCss = ['css' => $this->css, 'js' => $this->js];
         $arrController = explode('\\', $controller);
         $_module = \Fuska\System\String::camelToDash($arrController[0]);
         $_controller = substr(\Fuska\System\String::camelToDash($arrController[2]), 0, -11);
@@ -88,8 +100,24 @@ class Html extends \Fuska\System\ArrayObject {
             $file = base64_encode(\Fuska\System\Crypto::encode(sprintf("{$modulePath}public/%s/{$_controller}/{$_action}.%s", 'js', 'js')));
             $jsAndCss['js'][] = \Fuska\App::$router->basePath . "admin/file/js/file/{$file}";
         }
-
+        
+//        $jsAndCss['js'] = array_merge($jsAndCss['js'], $this->js);
+//        $jsAndCss['css'] = array_merge($jsAndCss['css'], $this->css);
         return $jsAndCss;
+    }
+
+    public function addJsFile($file) {
+//        if (!file_exists(APP_PATH . 'public/js/' . $file)) {
+//            throw new \Exception('Javascript File not found. ' . $file);
+//        }
+        $this->js = array_merge($this->js, [\Fuska\App::$router->basePath . 'js/' . $file]);
+    }
+
+    public function addCssFile($file) {
+//        if (!file_exists(APP_PATH . 'public/css/' . $file)) {
+//            throw new \Exception('Style File not found. ' . $file);
+//        }
+        $this->css = array_merge($this->css, [\Fuska\App::$router->basePath . 'css/' . $file]);
     }
 
 }

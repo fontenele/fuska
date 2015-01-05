@@ -1,5 +1,5 @@
 var Router;
-define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
+define(['backbone', 'cssLoader', 'jquery'], function (Backbone, cssLoader, $) {
     if (Router) {
         return Router;
     }
@@ -9,18 +9,22 @@ define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
         model: File
     });
     var cssCollection = new fileCollection();
-    cssCollection.on('remove', function(model, collection, options) {
-//        $.log('remover css', Router.cache.css.length, collection.length);
+    cssCollection.on('remove', function (model, collection) {
+        if (collection.where({file: model.get('file')}).length > 0) {
+            return;
+        }
         // Remover css do Head
-        $.each($('head link[data-tela]'), function(i, item) {
+        $.each($('head link[data-tela]'), function (i, item) {
             if ($(item).attr('href').replace('?v=' + version, '') == model.get('file')) {
                 $(item).remove();
             }
         });
     });
     var jsCollection = new fileCollection();
-    jsCollection.on('remove', function(model, collection, options) {
-//        $.log('remover js', Router.cache.css.length, collection.length);
+    jsCollection.on('remove', function (model, collection, options) {
+        if (collection.where({file: model.get('file')}).length > 0) {
+            return;
+        }
         // Remover js do Head
         require.undef(model.get('file'));
     });
@@ -32,7 +36,7 @@ define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
             css: cssCollection,
             js: jsCollection
         },
-        go: function(url, target, data) {
+        go: function (url, target, data) {
             Router.oldAction = Router.action;
             Router.action = url;
             data = JSON.stringify(data ? data : {});
@@ -41,26 +45,33 @@ define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
             require([
                 'text!' + basePath + url + '?type=html&t=' + (new Date()).getTime(),
                 'json!' + basePath + url + '?type=json&t=' + (new Date()).getTime() + '&d=' + _data
-            ], function(html, json) {
+            ], function (html, json) {
                 if (target) {
                     Layout.content(target, html);
                 } else {
                     $('#cache .html').html(html);
-                    $.each($('#cache .html').find('[data-block-target]'), function(i, item) {
+                    $.each($('#cache .html').find('[data-block-target]'), function (i, item) {
                         var $html = $('<div>').append($(item)).removeAttr('data-block-target');
                         Layout.content($(item).data('block-target'), $html.html());
                     });
                     $('#cache .html').empty();
                 }
 
-                Router.destructOldJsAndCssFiles();
                 Router.addCssFiles(json.files.css, url);
                 Router.addJsFiles(json.files.js, json.result, url);
+                if (Router.oldAction === Router.action) {
+                    return;
+                }
+                Router.destructOldJsAndCssFiles();
             });
         },
-        addJsFiles: function(list, request, url) {
-            $.each(list, function(i, item) {
-                require([item], function(view) {
+        addJsFiles: function (list, request, url) {
+            $.each(list, function (i, item) {
+                if (require.defined(item)) {
+//                    return;
+                }
+                require([item], function (view) {
+                    $.info(view, view.init);
                     if (typeof view === 'object' && view.init && typeof view.init === 'function') {
                         view.request = request;
                         view.init();
@@ -72,8 +83,8 @@ define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
                 });
             });
         },
-        addCssFiles: function(list, url) {
-            $.each(list, function(i, item) {
+        addCssFiles: function (list, url) {
+            $.each(list, function (i, item) {
                 cssLoader.addCssFile(item, true);
                 Router.cache.css.add({
                     url: url,
@@ -81,14 +92,14 @@ define(['backbone', 'cssLoader', 'jquery'], function(Backbone, cssLoader, $) {
                 });
             });
         },
-        destructOldJsAndCssFiles: function() {
+        destructOldJsAndCssFiles: function () {
             var cssFiles = Router.cache.css.where({url: Router.oldAction});
             Router.cache.css.remove(cssFiles);
             var jsFiles = Router.cache.js.where({url: Router.oldAction});
             Router.cache.js.remove(jsFiles);
-            Router.destructUnusedJsAndCssFiles();
+//            Router.destructUnusedJsAndCssFiles();
         },
-        destructUnusedJsAndCssFiles: function() {
+        destructUnusedJsAndCssFiles: function () {
 //            $.each(Router.cache.css, function(i, item) {
 //                $.info('cssFile', item);
 //            });

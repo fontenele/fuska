@@ -27,7 +27,7 @@ abstract class Controller {
     }
 
     public function init() {
-
+        
     }
 
     public function createView() {
@@ -62,41 +62,35 @@ abstract class Controller {
     }
 
     public function callAction($action = null) {
-        $arrClass = explode('\\', get_class($this));
-        $this->action = $action ? $action : $this->action;
-        $template = \strpos($this->action, '-') === false ? \Fuska\System\String::camelToDash($this->action) : $this->action;
-        $_module = \Fuska\System\String::camelToDash($arrClass[0]);
-        $_controller = \Fuska\System\String::camelToDash($arrClass[2]);
-        $_action = \Fuska\System\String::camelToDash($this->action);
-        $cssAndJs = \Fuska\App::loadJsAndCssFiles(get_class($this), $this->action);
-        if (!isset(\Fuska\App::$config['modulesPath'][$arrClass[0]])) {
-            throw new \Exception\FileNotFoundException("Path from module {$arrClass[0]} not found.");
-        }
-        $modulePath = \Fuska\App::$config['modulesPath'][$arrClass[0]];
-        if (is_dir("{$modulePath}/view/{$_controller}")) {
-            $appPath = str_replace('/', '\/', APP_PATH);
-            $moduleBasePath = preg_replace("/{$appPath}/", '', $modulePath, 1);
-            $this->view = new \Fuska\View\Html("{$moduleBasePath}view/{$_controller}/{$template}.phtml", ['request' => $this->request]);
-        }
-        \Fuska\App::$layout->css = $cssAndJs['css'];
-        \Fuska\App::$layout->js = $cssAndJs['js'];
-        return $this->{$this->action}();
+//        $arrClass = explode('\\', get_class($this));
+//        $this->action = $action ? $action : $this->action;
+//        $template = \strpos($this->action, '-') === false ? \Fuska\System\String::camelToDash($this->action) : $this->action;
+//        $_module = \Fuska\System\String::camelToDash($arrClass[0]);
+//        $_controller = \Fuska\System\String::camelToDash($arrClass[2]);
+//        $_action = \Fuska\System\String::camelToDash($this->action);
+//        $cssAndJs = \Fuska\App::loadJsAndCssFiles(get_class($this), $this->action);
+//        if (!isset(\Fuska\App::$config['modulesPath'][$arrClass[0]])) {
+//            throw new \Exception\FileNotFoundException("Path from module {$arrClass[0]} not found.");
+//        }
+//        $modulePath = \Fuska\App::$config['modulesPath'][$arrClass[0]];
+//        if (is_dir("{$modulePath}/view/{$_controller}")) {
+//            $appPath = str_replace('/', '\/', APP_PATH);
+//            $moduleBasePath = preg_replace("/{$appPath}/", '', $modulePath, 1);
+//            $this->view = new \Fuska\View\Html("{$moduleBasePath}view/{$_controller}/{$template}.phtml", ['request' => $this->request]);
+//        }
+//        \Fuska\App::$layout->css = $cssAndJs['css'];
+//        \Fuska\App::$layout->js = $cssAndJs['js'];
+//        return $this->{$this->action}();
     }
 
     public function addJsFile($file) {
-        try {
-            \Fuska\App::$layout->addJsFile($file);
-        } catch (\Exception $ex) {
-            throw $ex;
-        }
+//        \Fuska\App::$layout->addJsFile($file);
+        $this->view->addJsFile($file);
     }
 
     public function addCssFile($file) {
-        try {
-            \Fuska\App::$layout->addCssFile($file);
-        } catch (\Exception $ex) {
-            throw $ex;
-        }
+//        \Fuska\App::$layout->addCssFile($file);
+        $this->view->addCssFile($file);
     }
 
     public function addExtraJsFile($file) {

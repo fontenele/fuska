@@ -2,18 +2,16 @@
 
 namespace Admin\Controller;
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
-
 class UsuarioController extends \Fuska\Mvc\Controller {
 
     public function relatorio() {
-        $em = \Fuska\Mvc\Service::getManager();
-        $user = $em->getRepository('Admin\Model\Usuario');
-
         $service = new \Admin\Service\UsuarioService;
         $collection = new \Fuska\System\Collection($service->findBy([], ['login' => 'ASC']));
+        
+        $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
+        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
         $this->view->list = $collection->normalizeDataToGrid()->toArray();
+        $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
     }
 
@@ -22,6 +20,9 @@ class UsuarioController extends \Fuska\Mvc\Controller {
             $service = new \Admin\Service\UsuarioService;
             $this->view->usuario = $service->find($this->request->get->id)->normalizeDataToView();
         }
+        $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
+        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
+        $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
     }
 

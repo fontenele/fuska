@@ -1,5 +1,8 @@
 <?php
 
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
 namespace Admin\Controller;
 
 class BancoController extends \Fuska\Mvc\Controller {

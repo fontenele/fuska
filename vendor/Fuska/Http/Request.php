@@ -41,7 +41,8 @@ class Request {
             unset($get['d']);
         }
         $this->get = new \Fuska\System\ArrayObject($get);
-        $this->post = new \Fuska\System\ArrayObject(file_get_contents('php://input') ? json_decode(file_get_contents('php://input'), true) : $_POST);
+        $post = file_get_contents('php://input');
+        $this->post = new \Fuska\System\ArrayObject($post ? json_decode($post, true) : $_POST);
         $this->files = new \Fuska\System\ArrayObject($_FILES);
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
             $this->isAjax = true;

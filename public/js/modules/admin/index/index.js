@@ -1,7 +1,7 @@
-define(['view'], function() {
+define(['view'], function () {
     return {
         'request': {},
-        'init': function(options) {
+        'init': function (options) {
             var that = this;
             $('#app-top').render(this.request);
             $('#app-main').render(this.request);
@@ -46,7 +46,7 @@ define(['view'], function() {
                         ]
                     }
                 ],
-                onClick: function(event) {
+                onClick: function (event) {
                     if (event.node.url) {
                         var target, data = event.originalEvent && event.originalEvent.data ? event.originalEvent.data : {};
                         Router.go(event.node.url, target, data);
