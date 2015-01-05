@@ -13,7 +13,7 @@ define(['js/models/admin/Usuario'], function(Usuario) {
                 isGenerated: true,
                 fields: [
                     {name: 'login', type: 'text', required: true},
-                    {name: 'senha', type: 'text', required: true}
+                    {name: 'senha', type: 'password', required: true}
                 ],
                 actions: {
                     'salvar': function(e) {

@@ -57,11 +57,11 @@ requirejs.config({
 //require.onResourceLoad = function(context, map, i, j) {
 //};
 
-define([requirejs.s.contexts._.config.theme, 'router', 'backbone', 'debug'], function(theme, router) {
+define([requirejs.s.contexts._.config.theme, 'router', 'backbone', 'debug'], function(theme) {
     $(document).on('click', '.link-ajax', function() {
         var url = $(this).attr('href');
         var target = $(this).data('target');
-        router.go(url, target);
+        Router.go(url, target);
         return false;
     });
 

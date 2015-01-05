@@ -1,3 +1,4 @@
+var cssLoader;
 define(function () {
     var addCssFile = function (url, cssDeTela) {
         var link = document.createElement("link");
@@ -19,8 +20,11 @@ define(function () {
             addCssFile(css, cssDeTela);
         }
     };
-
-    return {
-        'addCss': addCss
+    
+    cssLoader = {
+            addCss: addCss,
+            addCssFile: addCssFile
     };
+
+    return cssLoader;
 });

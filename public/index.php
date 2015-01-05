@@ -58,7 +58,7 @@ class App {
             self::loadVendors();
             self::startSession();
             self::startLogger();
-            self::loadSystemConfigs();
+            self::loadConfigs();
             self::parseAndProcessRequest();
             self::parseAndProcessResponse();
             self::callAction(self::$router->getController(), self::$router->getAction(), self::$request);
@@ -116,7 +116,7 @@ class App {
         self::$logger->pushHandler(new \Monolog\Handler\StreamHandler(LOGS_PATH . 'critical.log', \Monolog\Logger::CRITICAL));
     }
 
-    public static function loadSystemConfigs() {
+    public static function loadConfigs() {
         $envs = ['dev', 'hom', 'prod'];
         $filesIgnore = [];
         $dir = new System\Dir(APP_PATH . 'config');

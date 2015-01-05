@@ -51,10 +51,10 @@
         </view>
         <db>
             <host>127.0.0.1</host>
-            <driver>pdo_mysql</driver>
-            <port>8889</port>
-            <user>root</user>
-            <password>root</password>
+            <driver>pdo_pgsql</driver>
+            <port>5432</port>
+            <user>postgres</user>
+            <password>postgres</password>
             <dbname>fuska</dbname>
         </db>
     </system>

@@ -45,6 +45,7 @@
         "is": "igual",
         "begins": "começa com",
         "begins with": "começa com",
+        "ends": "termina com",
         "contains": "contém",
         "ends with": "termina com",
         "between": "entre",

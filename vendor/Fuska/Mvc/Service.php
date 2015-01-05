@@ -47,17 +47,9 @@ abstract class Service {
     public function __construct($modelName) {
         $this->setModelName($modelName);
         if (!self::$manager) {
-            $dbParams = array(
-                'host' => '127.0.0.1',
-                'port' => '8889',
-                'driver' => 'pdo_mysql',
-                'user' => 'root',
-                'password' => 'root',
-                'dbname' => 'fuska',
-            );
             $paths = array(APP_PATH . "modules/Admin/model");
             $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($paths, true);
-            $entityManager = \Doctrine\ORM\EntityManager::create($dbParams, $config);
+            $entityManager = \Doctrine\ORM\EntityManager::create(\Fuska\App::$config['system']['db'], $config);
             $this->setManager($entityManager);
         }
     }

@@ -8,7 +8,7 @@ define(['js/models/admin/Usuario'], function(Usuario) {
             $('#usuario-relatorio-main .grid').w2grid({
                 name: 'grid-relatorio-usuarios',
                 header: 'Relatório de Usuários',
-                reorderColumns: true,
+                reorderColumns: false,
                 show: {
                     header: true,
                     toolbar: true,
@@ -21,15 +21,15 @@ define(['js/models/admin/Usuario'], function(Usuario) {
                     expandColumn: false
                 },
                 columns: [
-                    {field: 'login', caption: 'Login', size: '40%'},
-                    {field: 'senha', caption: 'Senha', size: '30%'},
-                    {field: 'ultimoLogin', caption: 'Últ. Login', size: '120px', attr: "align=center", render: 'date'}
+                    {field: 'id', caption: 'ID', size: '5%', attr: "align=center", hidden: true},
+                    {field: 'login', caption: 'Login', size: '75%'},
+                    {field: 'ultimoLogin', caption: 'Últ. Login', size: '20%', attr: "align=center", render: 'datetime'}
                 ],
                 searches: [
                     {type: 'int', field: 'id', caption: 'ID'},
                     {type: 'text', field: 'login', caption: 'Login'},
                     {type: 'text', field: 'senha', caption: 'Senha'},
-                    {type: 'date', field: 'ultimoLogin', caption: 'Últ. Login'}
+                    {type: 'text', field: 'ultimoLogin', caption: 'Últ. Login'}
                 ],
                 records: this.request.list,
                 onAdd: function(event) {

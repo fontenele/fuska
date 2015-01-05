@@ -38,9 +38,9 @@ class File {
             if (self::fileExists($filename)) {
                 switch (self::getExtension($filename)) {
                     case 'xml':
-                        $xml = simplexml_load_string(file_get_contents($filename));
+                        $xml = simplexml_load_string(file_get_contents($filename), 'Fuska\System\XML\XMLElement');
                         $json = json_encode($xml);
-                        return json_decode($json, true);
+                        return self::toArray($xml);
                     case 'php':
                     default:
                         return include_once($filename);
@@ -152,6 +152,21 @@ class File {
         } catch (\Exception $ex) {
             throw $ex;
         }
+    }
+
+    public static function toArray($obj) {
+        if (is_object($obj))
+            $obj = (array) $obj;
+        if (is_array($obj)) {
+            $new = [];
+            foreach ($obj as $key => $val) {
+                $new[$key] = self::toArray($val);
+            }
+        } else {
+            $new = $obj;
+        }
+
+        return gettype($new) === 'array' && count($new) === 0 ? '' : $new;
     }
 
 }
