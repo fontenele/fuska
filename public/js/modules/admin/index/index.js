@@ -5,7 +5,7 @@ define(['view'], function () {
             var that = this;
             $('#app-top').render(this.request);
             $('#app-main').render(this.request);
-            Layout.show('top', true);
+//            Layout.show('top', true);
             Layout.show('left', true);
 
             //$('#some-input').w2tag('Short Message')
@@ -14,7 +14,7 @@ define(['view'], function () {
             }
             $('#app-left').w2sidebar({
                 name: 'menu-left',
-                topHTML: '<a class="layout-toggle-top pull-right btn btn-default btn-xs" href="#">Mostrar/Esconder Topo</a>',
+                topHTML: '<div class="row-fluid"><a class="layout-toggle-top btn btn-default btn-xs col-xs-12" href="#">Mostrar/Esconder Topo</a></div>',
                 nodes: [
                     {
                         id: 'admin',

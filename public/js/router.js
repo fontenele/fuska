@@ -32,12 +32,16 @@ define(['backbone', 'cssLoader', 'jquery'], function (Backbone, cssLoader, $) {
     Router = {
         oldAction: '',
         action: '',
+        logged: false,
         cache: {
             css: cssCollection,
             js: jsCollection
         },
         go: function (url, target, data) {
             Router.oldAction = Router.action;
+            if(!this.verifyIsLogged()) {
+                url = 'admin/index/autenticacao';
+            }
             Router.action = url;
             data = JSON.stringify(data ? data : {});
             var _data = encodeURIComponent(data);
@@ -96,18 +100,9 @@ define(['backbone', 'cssLoader', 'jquery'], function (Backbone, cssLoader, $) {
             Router.cache.css.remove(cssFiles);
             var jsFiles = Router.cache.js.where({url: Router.oldAction});
             Router.cache.js.remove(jsFiles);
-//            Router.destructUnusedJsAndCssFiles();
         },
-        destructUnusedJsAndCssFiles: function () {
-//            $.each(Router.cache.css, function(i, item) {
-//                $.info('cssFile', item);
-//            });
-//            $.each(Router.cache.js, function(i, item) {
-//                $.info('jsFile', item);
-//            });
-            // js[arquivo.js][modulo/controler/action1]
-            // js[arquivo.js][modulo/controler/action2]
-            // verificar se nenhum esta sendo usado
+        verifyIsLogged: function () {
+            return this.logged;
         }
     };
 

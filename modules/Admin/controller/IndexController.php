@@ -10,6 +10,15 @@ class IndexController extends \Fuska\Mvc\Controller {
         return $this->view;
     }
 
+    public function autenticacao() {
+        return $this->view;
+    }
+
+    public function autenticar() {
+        $this->view->logado = true;
+        return $this->view;
+    }
+
     public function segundaTela() {
         $this->view->dadosPessoais = [
             'name' => 'Guilherme Fontenele',
