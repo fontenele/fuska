@@ -4,9 +4,14 @@ namespace Admin\Controller;
 
 class IndexController extends \Fuska\Mvc\Controller {
 
-    public function index() {
+    public static function getTotals($view) {
         $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
-        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
+        $queryGrupoUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\GrupoUsuarios u');
+        $view->totals = ['grupoUsuarios' => $queryGrupoUsuarios->getSingleScalarResult(), 'usuarios' => $queryUsuarios->getSingleScalarResult()];
+    }
+
+    public function index() {
+        self::getTotals($this->view);
         return $this->view;
     }
 

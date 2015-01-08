@@ -7,9 +7,7 @@ class GrupoUsuariosController extends \Fuska\Mvc\Controller {
     public function relatorio() {
         $service = new \Admin\Service\GrupoUsuariosService;
         $collection = new \Fuska\System\Collection($service->findBy([], ['nome' => 'ASC']));
-
-        $queryGrupoUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\GrupoUsuarios u');
-        $this->view->totals = ['grupoUsuarios' => $queryGrupoUsuarios->getSingleScalarResult()];
+        IndexController::getTotals($this->view);
         $this->view->list = $collection->normalizeDataToGrid()->toArray();
         $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
@@ -20,8 +18,7 @@ class GrupoUsuariosController extends \Fuska\Mvc\Controller {
             $service = new \Admin\Service\GrupoUsuariosService;
             $this->view->grupoUsuarios = $service->find($this->request->get->id)->normalizeDataToView();
         }
-        $queryGrupoUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\GrupoUsuarios u');
-        $this->view->totals = ['grupoUsuarios' => $queryGrupoUsuarios->getSingleScalarResult()];
+        IndexController::getTotals($this->view);
         $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
     }

@@ -29,7 +29,8 @@ requirejs.config({
         'text': 'vendor/requirejs/text',
         'underscore': 'vendor/requirejs/underscore',
         'view': 'js/view',
-        'w2ui': 'vendor/w2ui/w2ui.min'
+        //'w2ui': 'vendor/w2ui/w2ui.min'
+        'w2ui': 'vendor/w2ui/w2ui'
     },
     'shim': {
         'backbone': ['underscore'],

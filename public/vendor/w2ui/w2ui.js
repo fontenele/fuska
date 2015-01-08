@@ -6341,7 +6341,7 @@ w2utils.keyboard = (function (obj) {
                 if (s.hidden) continue;
                 var btn = '';
                 if (showBtn == false) {
-                    btn = '<button class="w2ui-btn close-btn" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.searchClose(); }">X</button';
+                    btn = '<button class="w2ui-btn btn close-btn" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.searchClose(); }">X</button';
                     showBtn = true;
                 }
                 if (typeof s.inTag   == 'undefined') s.inTag     = '';
@@ -6414,8 +6414,8 @@ w2utils.keyboard = (function (obj) {
             html += '<tr>'+
                     '    <td colspan="4" class="actions">'+
                     '        <div>'+
-                    '        <button class="w2ui-btn" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.searchReset(); }">'+ w2utils.lang('Reset') + '</button>'+
-                    '        <button class="w2ui-btn w2ui-btn-blue" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.search(); }">'+ w2utils.lang('Search') + '</button>'+
+                    '        <button class="w2ui-btn btn" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.searchReset(); }">'+ w2utils.lang('Reset') + '</button>'+
+                    '        <button class="w2ui-btn btn w2ui-btn-blue" onclick="obj = w2ui[\''+ this.name +'\']; if (obj) { obj.search(); }">'+ w2utils.lang('Search') + '</button>'+
                     '        </div>'+
                     '    </td>'+
                     '</tr></table>';
@@ -9229,7 +9229,7 @@ var w2alert = function (msg, title, callBack) {
             width   : 400,
             height  : 170,
             body    : '<div class="w2ui-centered" style="font-size: 13px;">' + msg + '</div>',
-            buttons : '<button onclick="w2popup.message();" class="w2ui-popup-btn w2ui-btn">' + w2utils.lang('Ok') + '</button>',            
+            buttons : '<button onclick="w2popup.message();" class="w2ui-popup-btn w2ui-btn btn">' + w2utils.lang('Ok') + '</button>',            
             onOpen: function () {
                 $('#w2ui-popup .w2ui-popup-message .w2ui-popup-btn').focus();
             },
@@ -9245,7 +9245,7 @@ var w2alert = function (msg, title, callBack) {
             showClose : false,
             title     : title,
             body      : '<div class="w2ui-centered" style="font-size: 13px;">' + msg + '</div>',
-            buttons   : '<button onclick="w2popup.close();" class="w2ui-popup-btn w2ui-btn">' + w2utils.lang('Ok') + '</button>',
+            buttons   : '<button onclick="w2popup.close();" class="w2ui-popup-btn w2ui-btn btn">' + w2utils.lang('Ok') + '</button>',
             onOpen: function (event) {
                 // do not use onComplete as it is slower
                 setTimeout(function () { $('#w2ui-popup .w2ui-popup-btn').focus(); }, 1);
@@ -9313,10 +9313,10 @@ var w2confirm = function (msg, title, callBack) {
             width   : options.width,
             height  : options.height,
             body    : '<div class="w2ui-centered" style="font-size: 13px;">' + options.msg + '</div>',
-            buttons : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +'" style="'+ options.yes_style +'">' + w2utils.lang(options.yes_text) + '</button>' +
-                      '<button id="No" class="w2ui-popup-btn w2ui-btn '+ options.no_class +'" style="'+ options.no_style +'">' + w2utils.lang(options.no_text) + '</button>',
+            buttons : '<button id="Yes" class="w2ui-popup-btn w2ui-btn btn '+ options.yes_class +'" style="'+ options.yes_style +'">' + w2utils.lang(options.yes_text) + '</button>' +
+                      '<button id="No" class="w2ui-popup-btn w2ui-btn btn '+ options.no_class +'" style="'+ options.no_style +'">' + w2utils.lang(options.no_text) + '</button>',
             onOpen: function () {
-                $('#w2ui-popup .w2ui-popup-message .w2ui-btn').on('click', function (event) {
+                $('#w2ui-popup .w2ui-popup-message .w2ui-btn btn').on('click', function (event) {
                     w2popup.message();
                     if (typeof options.callBack == 'function') options.callBack(event.target.id);
                     if (event.target.id == 'Yes' && typeof options.yes_callBack == 'function') options.yes_callBack();
@@ -9336,8 +9336,8 @@ var w2confirm = function (msg, title, callBack) {
             modal      : true,
             showClose  : false,
             body       : '<div class="w2ui-centered" style="font-size: 13px;">' + options.msg + '</div>',
-            buttons    : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +'" style="'+ options.yes_style +'">'+ w2utils.lang(options.yes_text) +'</button>'+
-                         '<button id="No" class="w2ui-popup-btn w2ui-btn '+ options.no_class +'" style="'+ options.no_style +'">'+ w2utils.lang(options.no_text) +'</button>',
+            buttons    : '<button id="Yes" class="w2ui-popup-btn w2ui-btn btn '+ options.yes_class +'" style="'+ options.yes_style +'">'+ w2utils.lang(options.yes_text) +'</button>'+
+                         '<button id="No" class="w2ui-popup-btn w2ui-btn btn '+ options.no_class +'" style="'+ options.no_style +'">'+ w2utils.lang(options.no_text) +'</button>',
             onOpen: function (event) {
                 // do not use onComplete as it is slower
                 setTimeout(function () {
@@ -14364,7 +14364,7 @@ var w2confirm = function (msg, title, callBack) {
                         info.caption = a;
                         if (['save', 'update', 'create'].indexOf(a.toLowerCase()) != -1) info['class'] = 'w2ui-btn-green'; else info['class'] = '';
                     }
-                    buttons += '\n    <button name="'+ a +'" class="w2ui-btn '+ info['class'] +'" style="'+ info.style +'">'+ 
+                    buttons += '\n    <button name="'+ a +'" class="w2ui-btn btn '+ info['class'] +'" style="'+ info.style +'">'+ 
                                             w2utils.lang(info.caption) +'</button>';
                 }
                 buttons += '\n</div>';

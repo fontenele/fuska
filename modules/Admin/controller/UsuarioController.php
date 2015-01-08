@@ -3,13 +3,14 @@
 namespace Admin\Controller;
 
 class UsuarioController extends \Fuska\Mvc\Controller {
-
+    
     public function relatorio() {
         $service = new \Admin\Service\UsuarioService;
         $collection = new \Fuska\System\Collection($service->findBy([], ['login' => 'ASC']));
-
-        $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
-        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
+        IndexController::getTotals($this->view);
+        $grupoUsuariosService = new \Admin\Service\GrupoUsuariosService;
+        $gruposUsuarios = new \Fuska\System\Collection($grupoUsuariosService->findAll());
+        $this->view->gruposUsuarios = $gruposUsuarios->normalizeDataToGrid()->toArray();
         $this->view->list = $collection->normalizeDataToGrid()->toArray();
         $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
@@ -21,8 +22,7 @@ class UsuarioController extends \Fuska\Mvc\Controller {
             $usuario = $service->findOneBy(['id' => $this->request->get->id]);
             $this->view->usuario = $usuario->normalizeDataToView();
         }
-        $queryUsuarios = \Fuska\Mvc\Service::getManager()->createQuery('SELECT COUNT(u.id) FROM Admin\Model\Usuario u');
-        $this->view->totals = ['usuarios' => $queryUsuarios->getSingleScalarResult()];
+        IndexController::getTotals($this->view);
         $grupoUsuariosService = new \Admin\Service\GrupoUsuariosService;
         $gruposUsuarios = new \Fuska\System\Collection($grupoUsuariosService->findAll());
         $this->view->gruposUsuarios = $gruposUsuarios->normalizeDataToGrid()->toArray();
