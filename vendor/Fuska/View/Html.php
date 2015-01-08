@@ -100,7 +100,7 @@ class Html extends \Fuska\System\ArrayObject {
             $file = base64_encode(\Fuska\System\Crypto::encode(sprintf("{$modulePath}public/%s/{$_controller}/{$_action}.%s", 'js', 'js')));
             $jsAndCss['js'][] = \Fuska\App::$router->basePath . "admin/file/js/file/{$file}";
         }
-        
+
 //        $jsAndCss['js'] = array_merge($jsAndCss['js'], $this->js);
 //        $jsAndCss['css'] = array_merge($jsAndCss['css'], $this->css);
         return $jsAndCss;

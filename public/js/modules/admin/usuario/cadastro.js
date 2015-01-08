@@ -3,6 +3,10 @@ define(['js/models/admin/Usuario'], function(Usuario) {
         'request': {},
         'init': function(options) {
             var that = this;
+            var _gruposUsuariosTmp = this.request.gruposUsuarios, gruposUsuarios = [];
+            $.each(_gruposUsuariosTmp, function(i, item) {
+                gruposUsuarios[gruposUsuarios.length] = {id: item.id, text: item.nome};
+            });
             if (w2ui['form-cadastro-usuario']) {
                 w2ui['form-cadastro-usuario'].destroy();
             }
@@ -13,7 +17,8 @@ define(['js/models/admin/Usuario'], function(Usuario) {
                 isGenerated: true,
                 fields: [
                     {name: 'login', type: 'text', required: true},
-                    {name: 'senha', type: 'password', required: true}
+                    {name: 'senha', type: 'password', required: true},
+                    {name: 'grupoUsuarios', type: 'select', required: true, options: {items: gruposUsuarios}}
                 ],
                 actions: {
                     'salvar': function(e) {
@@ -22,6 +27,7 @@ define(['js/models/admin/Usuario'], function(Usuario) {
                             return;
                         }
                         var voUsuario = new Usuario(this.record);
+                        $.log(voUsuario);
                         voUsuario.save(null, {
                             error: function(model, result) {
                                 w2alert(result.responseText, 'Erro!');
@@ -40,7 +46,9 @@ define(['js/models/admin/Usuario'], function(Usuario) {
             });
 
             if (that.request.usuario) {
-                w2ui['form-cadastro-usuario'].record = that.request.usuario;
+                var _usuario = new Usuario(that.request.usuario).json();
+                _usuario.grupoUsuarios = _usuario.grupoUsuarios.id;
+                w2ui['form-cadastro-usuario'].record = _usuario;
                 w2ui['form-cadastro-usuario'].refresh();
             }
 
