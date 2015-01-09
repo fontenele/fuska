@@ -20,7 +20,21 @@ class IndexController extends \Fuska\Mvc\Controller {
     }
 
     public function autenticar() {
-        $this->view->logado = true;
+        $post = $this->request->post;
+        $service = new \Admin\Service\UsuarioService;
+        $usuario = new \Admin\Model\Usuario(['login' => $post->login, 'senha' => $post->senha]);
+        $logado = $service->autenticar($usuario);
+        if ($logado) {
+            $sessionContainer = new \Fuska\System\Session('__Fu5k4-usr__');
+            $sessionContainer->user = $logado;
+        }
+        $this->view->logado = $logado ? true : false;
+        return $this->view;
+    }
+
+    public function sair() {
+        $sessionContainer = new \Fuska\System\Session('__Fu5k4-usr__');
+        $sessionContainer->clear();
         return $this->view;
     }
 

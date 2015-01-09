@@ -25,6 +25,7 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
             $.ajax({
                 url: basePath + "admin/index/autenticar?type=json",
                 async: false,
+                method: 'post',
                 dataType: 'json',
                 data: this.toJSON(),
                 success: function(result) {
@@ -37,6 +38,24 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
                 }
             });
             return this.get('logado');
+        },
+        'sair': function() {
+            var that = this;
+            $.ajax({
+                url: basePath + "admin/index/sair?type=json",
+                async: false,
+                method: 'get',
+                dataType: 'json',
+                success: function(result) {
+                    Router.logged = false;
+                    Router.go('main/index/index');
+                    return true;
+                },
+                error: function(result) {
+                    w2alert('Tente novamente...', 'Erro!')
+                    return false;
+                }
+            });
         }
     });
 

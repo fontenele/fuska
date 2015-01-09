@@ -247,6 +247,11 @@ class App {
     }
 
     public static function callAction($controller, $action, $request) {
+        $sessionContainer = new \Fuska\System\Session('__Fu5k4-usr__');
+        $logado = false;
+        if ($sessionContainer->user) {
+            $logado = true;
+        }
         if (self::$layout) {
             if (isset(self::$config['system']['view']['afterRenderLayout'])) {
                 foreach (self::$config['system']['view']['afterRenderLayout'] as $method) {
@@ -258,6 +263,7 @@ class App {
             $cssAndJs['js'] = array_merge(self::$layout->js, $cssAndJs['js']);
             self::$layout->css = $cssAndJs['css'];
             self::$layout->js = $cssAndJs['js'];
+            self::$layout->logado = $logado;
         }
 
         $controller = '\\' . $controller;

@@ -20,12 +20,20 @@ class Session extends ArrayObject {
         parent::offsetSet($name, $value);
     }
 
+    public function offsetUnset($index) {
+        if (parent::offsetExists($index)) {
+            unset($_SESSION[$this->container][$index]);
+        }
+        parent::offsetUnset($index);
+    }
+
     public function offsetGet($index) {
         return unserialize(parent::offsetGet($index));
     }
 
     public function clear() {
         $_SESSION[$this->container] = [];
+        $this->exchangeArray([]);
     }
 
     public static function create() {

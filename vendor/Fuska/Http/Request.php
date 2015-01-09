@@ -5,17 +5,17 @@ namespace Fuska\Http;
 class Request {
 
     /**
-     * @var \ArrayObject
+     * @var \Fuska\System\ArrayObject
      */
     public $get;
 
     /**
-     * @var \ArrayObject
+     * @var \Fuska\System\ArrayObject
      */
     public $post;
 
     /**
-     * @var \ArrayObject
+     * @var \Fuska\System\ArrayObject
      */
     public $files;
 
@@ -42,7 +42,8 @@ class Request {
         }
         $this->get = new \Fuska\System\ArrayObject($get);
         $post = file_get_contents('php://input');
-        $this->post = new \Fuska\System\ArrayObject($post ? json_decode($post, true) : $_POST);
+//        $this->post = new \Fuska\System\ArrayObject($post ? json_decode($post, true) : $_POST);
+        $this->post = new \Fuska\System\ArrayObject(count($_POST) ? $_POST : ($post ? json_decode($post, true) : $_POST));
         $this->files = new \Fuska\System\ArrayObject($_FILES);
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
             $this->isAjax = true;

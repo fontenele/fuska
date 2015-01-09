@@ -32,7 +32,7 @@ define(['backbone', 'cssLoader', 'jquery'], function (Backbone, cssLoader, $) {
     Router = {
         oldAction: '',
         action: '',
-        logged: false,
+        logged: logado,
         cache: {
             css: cssCollection,
             js: jsCollection
