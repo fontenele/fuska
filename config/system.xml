@@ -4,36 +4,44 @@
         <module>Admin</module>
         <module>Main</module>
         <acl>
-            <enabled>false</enabled>
+            <enabled>1</enabled>
+            <ignore>
+                <controller>Admin\Controller\IndexController</controller>
+                <action>autenticar</action>
+            </ignore>
+            <ignore>
+                <controller>Admin\Controller\IndexController</controller>
+                <action>sair</action>
+            </ignore>
         </acl>
         <router>
             <error>
                 <cod>404</cod>
-                <controller>Admin\Controller\Index</controller>
+                <controller>Admin\Controller\IndexController</controller>
                 <action>error404</action>
             </error>
             <error>
                 <cod>304</cod>
-                <controller>Admin\Controller\Index</controller>
+                <controller>Admin\Controller\IndexController</controller>
                 <action>error404</action>
             </error>
             <error>
                 <cod>400</cod>
-                <controller>Admin\Controller\Index</controller>
+                <controller>Admin\Controller\IndexController</controller>
                 <action>errorDefault</action>
             </error>
             <error>
                 <cod>7</cod>
-                <controller>Admin\Controller\Index</controller>
+                <controller>Admin\Controller\IndexController</controller>
                 <action>errorDefault</action>
             </error>
             <error>
                 <cod>333</cod>
-                <controller>Admin\Controller\Index</controller>
+                <controller>Admin\Controller\IndexController</controller>
                 <action>errorDefault</action>
             </error>
             <default>/admin/index/index</default>
-            <defaultAuth>/admin/auth/login</defaultAuth>
+            <defaultAuth>/admin/index/autenticacao</defaultAuth>
         </router>
         <auth>
             <gravatar>false</gravatar>

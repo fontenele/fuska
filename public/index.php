@@ -248,10 +248,37 @@ class App {
 
     public static function callAction($controller, $action, $request) {
         $sessionContainer = new \Fuska\System\Session('__Fu5k4-usr__');
-        $logado = false;
-        if ($sessionContainer->user) {
-            $logado = true;
+        $logado = !(bool) self::$config['system']['acl']['enabled'];
+
+        switch (true) {
+            case $sessionContainer->user:
+                $logado = true;
+                break;
+            case (!self::$layout):
+                $route = self::$router->parseRoute(self::$config['system']['router']['defaultAuth']);
+                $ignoreRoute = false;
+                if (isset(self::$config['system']['acl']['ignore']) && is_array(self::$config['system']['acl']['ignore'])) {
+                    $ignores = self::$config['system']['acl']['ignore'];
+                    if (isset($ignores['controller'])) {
+                        $ignores = [$ignores];
+                    }
+                    foreach ($ignores as $_route) {
+                        if ($_route['controller'] == $controller && $_route['action'] == $action) {
+                            $ignoreRoute = true;
+                        }
+                    }
+                }
+                if (!$ignoreRoute) {
+                    $controller = $route['controller'];
+                    $action = $route['action'];
+                }
+                break;
+            default:
+                $route = self::$router->parseRoute(self::$config['system']['router']['default']);
+                $controller = $route['controller'];
+                $action = $route['action'];
         }
+
         if (self::$layout) {
             if (isset(self::$config['system']['view']['afterRenderLayout'])) {
                 foreach (self::$config['system']['view']['afterRenderLayout'] as $method) {

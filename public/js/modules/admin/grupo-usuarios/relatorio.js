@@ -1,7 +1,7 @@
-define(['js/models/admin/GrupoUsuarios', 'backbone'], function (GrupoUsuarios, Backbone) {
+define(['js/models/admin/GrupoUsuarios', 'backbone'], function(GrupoUsuarios, Backbone) {
     return {
         'request': {},
-        'init': function (options) {
+        'init': function(options) {
             if (w2ui['grid-relatorio-grupo-usuarios']) {
                 w2ui['grid-relatorio-grupo-usuarios'].destroy();
             }
@@ -23,7 +23,11 @@ define(['js/models/admin/GrupoUsuarios', 'backbone'], function (GrupoUsuarios, B
                 columns: [
                     {field: 'id', caption: 'ID', size: '5%', attr: "align=center", hidden: true},
                     {field: 'nome', caption: 'Nome', size: '75%'},
-                    {field: 'status', caption: 'Status', size: '20%', attr: "align=center"}
+                    {field: 'status', caption: 'Status', size: '20%', attr: "align=center",
+                        render: function(row, i) {
+                            return row.status === 1 ? 'Ativo' : 'Inativo';
+                        }
+                    }
                 ],
                 searches: [
                     {type: 'int', field: 'id', caption: 'ID'},
@@ -31,25 +35,25 @@ define(['js/models/admin/GrupoUsuarios', 'backbone'], function (GrupoUsuarios, B
                     {type: 'text', field: 'status', caption: 'Status'}
                 ],
                 records: this.request.list,
-                onAdd: function (event) {
+                onAdd: function(event) {
                     w2ui['menu-left'].click('admin/grupo-usuarios/cadastro');
                 },
-                onEdit: function (event) {
+                onEdit: function(event) {
                     w2ui['menu-left'].click('admin/grupo-usuarios/cadastro', {
                         data: {id: event.recid}
                     });
                 },
-                onDelete: function (event) {
+                onDelete: function(event) {
                     var selected = this.getSelection().shift();
-                    event.onComplete = function (event) {
+                    event.onComplete = function(event) {
                         var usuario = new GrupoUsuarios({id: selected});
                         usuario.delete({
-                            success: function (model) {
+                            success: function(model) {
                                 w2ui['menu-left'].get('admin/grupo-usuarios').count--;
                                 w2ui['menu-left'].refresh();
                                 w2alert('Grupo de Usuários excluído com sucesso.', 'Sucesso!');
                             },
-                            error: function (model, result) {
+                            error: function(model, result) {
                                 w2alert(result.responseText, 'Erro!');
                             }
                         });
