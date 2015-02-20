@@ -37,6 +37,13 @@ class Usuario extends \Fuska\Mvc\Model {
     public $senha;
 
     /**
+     * @var string
+     *
+     * @Column(name="nome", type="string", length=100, nullable=true)
+     */
+    public $nome;
+
+    /**
      * @var \DateTime
      *
      * @Column(name="ultimo_login", type="datetime", nullable=true)
@@ -118,6 +125,26 @@ class Usuario extends \Fuska\Mvc\Model {
      */
     public function getSenha() {
         return $this->senha;
+    }
+
+    /**
+     * Get nome
+     *
+     * @return string
+     */
+    public function getNome() {
+        return $this->nome;
+    }
+
+    /**
+     * Set nome
+     *
+     * @param string $nome
+     * @return Usuario
+     */
+    public function setNome($nome) {
+        $this->nome = $nome;
+        return $this;
     }
 
     /**

@@ -18,6 +18,7 @@ define(['js/models/admin/Usuario'], function(Usuario) {
                 fields: [
                     {name: 'login', type: 'text', required: true},
                     {name: 'senha', type: 'password', required: true},
+                    {name: 'nome', type: 'text', required: true},
                     {name: 'grupoUsuarios', type: 'select', required: true, options: {items: gruposUsuarios}}
                 ],
                 actions: {

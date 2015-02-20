@@ -3,7 +3,7 @@
 namespace Admin\Controller;
 
 class UsuarioController extends \Fuska\Mvc\Controller {
-    
+
     public function relatorio() {
         $service = new \Admin\Service\UsuarioService;
         $collection = new \Fuska\System\Collection($service->findBy([], ['login' => 'ASC']));
@@ -42,7 +42,8 @@ class UsuarioController extends \Fuska\Mvc\Controller {
         $post = $this->request->post;
         $grupoUsuarios = new \Admin\Model\GrupoUsuarios(['id' => $post->grupoUsuarios]);
         $usuario->setLogin($post->login)
-                ->setSenha($post->senha)
+                ->setSenha(md5($post->senha))
+                ->setNome($post->nome)
                 ->setGrupoUsuarios($grupoUsuarios)
                 ->setUltimoLogin(new \Fuska\System\DateTime())
                 ->setId($post->id);

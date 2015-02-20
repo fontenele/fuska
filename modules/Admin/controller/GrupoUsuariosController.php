@@ -9,7 +9,6 @@ class GrupoUsuariosController extends \Fuska\Mvc\Controller {
         $collection = new \Fuska\System\Collection($service->findBy([], ['nome' => 'ASC']));
         IndexController::getTotals($this->view);
         $this->view->list = $collection->normalizeDataToGrid()->toArray();
-        $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
     }
 
@@ -19,7 +18,6 @@ class GrupoUsuariosController extends \Fuska\Mvc\Controller {
             $this->view->grupoUsuarios = $service->find($this->request->get->id)->normalizeDataToView();
         }
         IndexController::getTotals($this->view);
-        $this->view->addJsFile('modules/admin/index/index.js');
         return $this->view;
     }
 

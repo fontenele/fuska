@@ -8,6 +8,7 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
             'recid': '',
             'id': '',
             'login': '',
+            'nome': '',
             'logado': false,
             'senha': '',
             'status': '',
@@ -21,6 +22,7 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
 //            }
         },
         'autenticar': function() {
+            Layout.showLoading('main', 'Aguarde...');
             var that = this;
             $.ajax({
                 url: basePath + "admin/index/autenticar?type=json",
@@ -29,10 +31,12 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
                 dataType: 'json',
                 data: this.toJSON(),
                 success: function(result) {
+                    Layout.hideLoading('main');
                     that.set('logado', result.result.logado);
                     return true;
                 },
                 error: function(result) {
+                    Layout.hideLoading('main');
                     that.set('logado', false);
                     return false;
                 }
@@ -40,6 +44,7 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
             return this.get('logado');
         },
         'sair': function() {
+            Layout.showLoading('main', 'Aguarde...');
             var that = this;
             $.ajax({
                 url: basePath + "admin/index/sair?type=json",
@@ -47,12 +52,14 @@ define(['model', 'js/models/admin/GrupoUsuarios'], function(Model, GrupoUsuarios
                 method: 'get',
                 dataType: 'json',
                 success: function(result) {
+                    Layout.hideLoading('main');
                     Router.logged = false;
                     Router.go('main/index/index');
                     return true;
                 },
                 error: function(result) {
-                    w2alert('Tente novamente...', 'Erro!')
+                    Layout.hideLoading('main');
+                    w2alert('Tente novamente...', 'Erro!');
                     return false;
                 }
             });

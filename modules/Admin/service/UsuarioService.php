@@ -11,6 +11,8 @@ class UsuarioService extends \Fuska\Mvc\Service {
     public function autenticar(\Admin\Model\Usuario $usuario) {
         $usuarioBusca = $this->findOneBy(['login' => $usuario->getLogin(), 'senha' => md5($usuario->getSenha())]);
         if ($usuarioBusca) {
+            $usuarioBusca->setUltimoLogin(new \Fuska\System\DateTime());
+            $this->save($usuarioBusca);
             return $usuarioBusca->normalizeDataToView();
         }
         return false;

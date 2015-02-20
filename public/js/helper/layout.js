@@ -1,10 +1,12 @@
-var Layout;
-define(function () {
+var Layout, MK;
+define(['mk'], function(mk) {
     if (Layout) {
         return Layout;
     }
     
-    w2utils.locale(jsBasePath + 'vendor/w2ui/locale/pt-br.json')
+    MK = mk;
+    
+    w2utils.locale(jsBasePath + 'vendor/w2ui/locale/pt-br.json');
 
     var pstyle = 'border: 1px solid #dfdfdf; padding: 6px;';
     $('#layout').w2layout({
@@ -16,9 +18,15 @@ define(function () {
             {type: 'preview', size: '50%', resizable: true, hidden: true, style: pstyle, content: ''},
             {type: 'right', size: '20%', resizable: true, hidden: true, style: pstyle, content: ''},
             {type: 'bottom', size: '0%', resizable: true, hidden: true, style: pstyle, content: ''}
-        ]
+        ],
+        showLoading: function(panel, message) {
+            this.lock(panel, message, true);
+        },
+        hideLoading: function(panel) {
+            this.unlock(panel);
+        }
     });
-    
+
     $(document).on('click', '.layout-toggle-left', function() {
         w2ui.layout.toggle('left');
         return false;

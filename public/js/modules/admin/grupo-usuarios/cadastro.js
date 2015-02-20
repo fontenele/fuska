@@ -1,27 +1,40 @@
-define(['js/models/admin/GrupoUsuarios'], function(GrupoUsuarios) {
+define(['js/models/admin/GrupoUsuarios', 'form'], function(GrupoUsuarios, Form) {
     return {
         'request': {},
+        'form': null,
         'init': function(options) {
             var that = this;
-            if (w2ui['form-cadastro-grupo-usuarios']) {
-                w2ui['form-cadastro-grupo-usuarios'].destroy();
-            }
-            $('#grupo-usuarios-cadastro-main .form').w2form({
-                name: 'form-cadastro-grupo-usuarios',
-                header: 'Cadastro de Grupo de Usuários',
-                formHTML: '',
-                isGenerated: true,
-                fields: [
-                    {name: 'nome', type: 'text', required: true},
-                    {name: 'status', type: 'text', required: true}
+            that.form = new Form({
+                el: $('#grupo-usuarios-cadastro-main .form'),
+                data: that.request.grupoUsuarios,
+                items: [
+                    {
+                        name: 'id',
+                        el: $(':input[name=id]'),
+                        type: 'hidden'
+                    },
+                    {
+                        name: 'nome',
+                        label: 'Nome',
+                        el: $(':input[name=nome]'),
+                        type: 'text',
+                        required: true
+                    },
+                    {
+                        name: 'status',
+                        label: 'Status',
+                        el: $(':input[name=status]'),
+                        type: 'select',
+                        required: true,
+                        options: [
+                            {id: 1, label: 'Ativo'},
+                            {id: 2, label: 'Inativo'}
+                        ]
+                    }
                 ],
-                actions: {
-                    'salvar': function(e) {
-                        var erros = this.validate();
-                        if (erros.length > 0) {
-                            return;
-                        }
-                        var voGrupoUsuarios = new GrupoUsuarios(this.record);
+                submit: function() {
+                    if (this.validate()) {
+                        var voGrupoUsuarios = new GrupoUsuarios(this.items.toJSON());
                         voGrupoUsuarios.save(null, {
                             error: function(model, result) {
                                 w2alert(result.responseText, 'Erro!');
@@ -39,14 +52,7 @@ define(['js/models/admin/GrupoUsuarios'], function(GrupoUsuarios) {
                 }
             });
 
-            if (that.request.grupoUsuarios) {
-                w2ui['form-cadastro-grupo-usuarios'].record = that.request.grupoUsuarios;
-                w2ui['form-cadastro-grupo-usuarios'].refresh();
-            }
-
-            $('#usuario-cadastro-main .form').removeClass('w2ui-reset');
-
-            return this;
+            return that;
         }
     };
 });
