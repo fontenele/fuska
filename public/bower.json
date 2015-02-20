@@ -1,6 +1,8 @@
 {
     "name": "fuska",
     "version": "1.0.0",
+    "analytics": false,
+    "directory": "~/vendor",
     "ignore": [
         ".jshintrc",
         "**/*.txt"
