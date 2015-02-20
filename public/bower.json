@@ -3,10 +3,8 @@
     "version": "1.0.0",
     "analytics": false,
     "directory": "~/vendor",
-    "ignore": [
-        ".jshintrc",
-        "**/*.txt"
-    ],
+    "private": true,
+    "main": "~/js/app.js",
     "dependencies": {
         "jquery": "*",
         "bootstrap": "*",
@@ -21,6 +19,9 @@
         "backbone": "*",
         "normalize.css": "*",
         "r.js": "*",
-        "underscore": "*"
+        "underscore": "*",
+        "w2ui": "*",
+        "matreshka": "*",
+        "mustache": "*"
     }
 }
