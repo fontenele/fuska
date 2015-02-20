@@ -1,0 +1,24 @@
+{
+    "name": "fuska",
+    "version": "1.0.0",
+    "ignore": [
+        ".jshintrc",
+        "**/*.txt"
+    ],
+    "dependencies": {
+        "jquery": "*",
+        "bootstrap": "*",
+        "fontawesome": "*",
+        "jquery.maskmoney": "*",
+        "require": "*",
+        "requirejs-text": "*",
+        "require-css": "*",
+        "requirejs-plugins": "*",
+        "requirejs-i18n": "*",
+        "requirejs-domready": "*",
+        "backbone": "*",
+        "normalize.css": "*",
+        "r.js": "*",
+        "underscore": "*"
+    }
+}
