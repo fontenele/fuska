@@ -1,27 +1,37 @@
 {
     "name": "fuska",
-    "version": "1.0.0",
+    "version": "0.0.1",
+    "description": "",
+    "author": "Guilherme Fontenele",
     "analytics": false,
-    "directory": "~/vendor",
+    "directory": "vendor",
     "private": true,
-    "main": "~/js/app.js",
+    "main": "public/index.php",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
     "dependencies": {
         "jquery": "*",
+        "backbone": "*",
         "bootstrap": "*",
         "fontawesome": "*",
         "jquery.maskmoney": "*",
-        "require": "*",
-        "requirejs-text": "*",
-        "require-css": "*",
-        "requirejs-plugins": "*",
-        "requirejs-i18n": "*",
-        "requirejs-domready": "*",
-        "backbone": "*",
+        "matreshka": "*",
+        "mustache": "*",
         "normalize.css": "*",
         "r.js": "*",
+        "requirejs": "*",
+        "require-css": "*",
+        "requirejs-domready": "*",
+        "requirejs-i18n": "*",
+        "requirejs-plugins": "*",
+        "requirejs-text": "*",
         "underscore": "*",
-        "w2ui": "*",
-        "matreshka": "*",
-        "mustache": "*"
-    }
+        "w2ui": "*"
+    },
+    "devDependencies": {}
 }
